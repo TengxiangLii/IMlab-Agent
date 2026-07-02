@@ -1,0 +1,14 @@
+{
+  "name": "imlab-marketplace",
+  "owner": {
+    "name": "TengxiangLii",
+    "email": "li.t.ab30@m.isct.ac.jp"
+  },
+  "plugins": [
+    {
+      "name": "imlab",
+      "source": "./plugins/imlab",
+      "description": "Slurm job management and documentation search for the IMLab `im` cluster (Institute of Science Tokyo)."
+    }
+  ]
+}

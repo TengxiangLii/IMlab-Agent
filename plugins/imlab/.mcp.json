@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "imlab-hpc": {
+      "command": "uv",
+      "args": [
+        "tool",
+        "run",
+        "--quiet",
+        "--from",
+        "git+https://github.com/TengxiangLii/IMLab-Agent.git@main#subdirectory=server",
+        "imlab-hpc-mcp"
+      ],
+      "env": {}
+    },
+    "imlab-docs": {
+      "command": "uv",
+      "args": [
+        "tool",
+        "run",
+        "--quiet",
+        "--from",
+        "git+https://github.com/TengxiangLii/IMLab-Agent.git@main#subdirectory=server",
+        "imlab-docs-mcp"
+      ],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "imlab",
+  "description": "Interact with the IMLab `im` cluster (Institute of Science Tokyo): submit and monitor Slurm jobs, manage files on the cluster, and search the built-in guide.",
+  "version": "0.1.0",
+  "author": {
+    "name": "TengxiangLii",
+    "email": "li.t.ab30@m.isct.ac.jp"
+  },
+  "keywords": ["hpc", "slurm", "imlab", "isct", "cpu", "mpi", "computational-chemistry"]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "imlab-marketplace",
+  "interface": {
+    "displayName": "IMLab"
+  },
+  "plugins": [
+    {
+      "name": "imlab",
+      "source": {
+        "source": "local",
+        "path": "./plugins/imlab"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

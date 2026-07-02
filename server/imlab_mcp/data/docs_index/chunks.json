@@ -1,0 +1,56 @@
+[
+  {
+    "breadcrumb": "The im cluster",
+    "url": "internal://imlab/",
+    "text": "An original, plain-language orientation to the **im** cluster (IMLab, Institute\nof Science Tokyo), written for users who drive it through IMLab-Agent. It records\nthe site-specific facts that shape how you ask for work — not general HPC/Linux\nbackground, and not a command reference. Stable facts (node shapes, partitions,\npaths) are stated here so the agent can size a job without a round-trip; genuinely\nchanging values (queue occupancy, installed versions) are left to the live\nsystem, which the agent queries on demand.",
+    "id": 0
+  },
+  {
+    "breadcrumb": "The im cluster > What im is",
+    "url": "internal://imlab/",
+    "text": "im is a small **CPU-first** cluster scheduled with **Slurm**, used mainly for\ncomputational-chemistry and materials simulations (CP2K, Quantum ESPRESSO, LAMMPS,\nDFTB+, BigDFT). It has **three nodes** built on AMD EPYC (Zen3) CPUs — `im1`\n(also the login node) and `im3` with 128 cores each, `im2` with 64 — and 257–514\nGB of memory per node. There are **no GPUs**: think CPU, MPI, and OpenMP, and\ndescribe jobs in nodes, ranks, and threads.",
+    "id": 1
+  },
+  {
+    "breadcrumb": "The im cluster > Getting on the system",
+    "url": "internal://imlab/",
+    "text": "You reach im by SSH to `131.112.104.58` (host `im1`). On the Institute network you\ncan connect directly; from outside, hop through the TSUBAME login node as an SSH\n`ProxyJump` — the agent uses whatever alias you set in `~/.ssh/config`, so the jump\nis transparent once configured. Authentication is by SSH key.\n\nThe login node `im1` is shared and lightly resourced. Use it for editing,\nbuilding, staging files, and submitting — anything heavier belongs in a job, which\nthe agent submits for you.",
+    "id": 2
+  },
+  {
+    "breadcrumb": "The im cluster > Running jobs: partitions, ranks, and threads",
+    "url": "internal://imlab/",
+    "text": "You describe a job in CPU terms and the agent turns it into a Slurm submission:\nhow many **nodes**, how many **MPI ranks per node**, how many **OpenMP threads per\nrank**, how much **memory**, and which **partition**. You do not write batch\nscripts or recall Slurm flags.\n\nPick a partition for the kind of run:\n\n| partition | use for |\n|---|---|\n| `main` (default) | everyday CPU / MPI work |\n| `long` | long-running jobs |\n| `huge` | large-memory or whole-node jobs |\n| `debug` | quick tests and short debugging runs |\n\nWall-time limits are effectively **unlimited** on every partition, but it's still\ngood practice to give a realistic time so the scheduler can plan; the agent\ndefaults to one hour if you don't say. Memory is not capped by default — ask for\na specific amount only when a job needs it.\n\n**Jobs are not billed.** Slurm accounting is not enforced on im, so no project,\naccount, or budget is required to submit — you just run.",
+    "id": 3
+  },
+  {
+    "breadcrumb": "The im cluster > Software: modules and MPI",
+    "url": "internal://imlab/",
+    "text": "Software comes from **Environment Modules**. A typical job loads an MPI stack and\nan application, for example `module load openmpi/5.0.7` and then a code like\n`cp2k/2025.2`, `quantum-espresso/7.3`, or `lammps/22Jul2025`. Numerical libraries\n(FFTW, HDF5, NetCDF, OpenBLAS, ScaLAPACK) are available as modules too. Because\nversions change, have the agent list what's installed live rather than relying on\na frozen list — but a few conventions are stable:\n\n- **Load the same modules to build and to run.** Mismatched MPI versions between\n  build and run time are a common source of failures.\n- **Launch MPI with `srun` or `mpirun`.** Under Slurm, `srun` inherits the job's\n  allocation. Match the MPI module you load (`openmpi/5.0.7` is the newest).\n- **Tell threaded code its thread count** — set `OMP_NUM_THREADS` to the cores\n  you reserve per rank, or it may run with the wrong number and far slower.\n\nThere is **no container runtime** on im (no Apptainer/Singularity/Docker), so\nbring software through modules or build it in your home directory.",
+    "id": 4
+  },
+  {
+    "breadcrumb": "The im cluster > Storage",
+    "url": "internal://imlab/",
+    "text": "Two places to keep data:\n\n- `/home/<user>` — 500 GB shared area for code, scripts, and small files.\n- `/data` — 9.1 TB shared area for large datasets and results.\n\nThere is no Lustre and no dedicated per-job scratch tier, so stage inputs and\nwrite outputs under `/home` or `/data`. The agent can move files between your\nlaptop and these areas and report usage.",
+    "id": 5
+  },
+  {
+    "breadcrumb": "The im cluster > Running work through the agent",
+    "url": "internal://imlab/",
+    "text": "You describe a job in resource terms — nodes, ranks per node, threads per rank,\nmemory, wall time, and partition — and the agent assembles and submits the Slurm\njob, then returns a job ID to track. Most jobs are pure-MPI or a hybrid of MPI\nacross nodes with OpenMP threads within each node.",
+    "id": 6
+  },
+  {
+    "breadcrumb": "The im cluster > Following jobs and untangling failures",
+    "url": "internal://imlab/",
+    "text": "After submission, a job's queue position, state, and history come from Slurm —\nask the agent and it reports back in plain language, including why a waiting job\nis waiting. A job's console output is written to `slurm-<jobid>.out` in the\ndirectory it was launched from, which the agent can read and summarize.\n\nWhen a job misbehaves, the cause is usually one of a few:\n\n- It ran out of memory — raise `--mem`, use fewer ranks per node, or move to\n  `huge`.\n- Its thread count was left unset, so performance collapsed — set\n  `OMP_NUM_THREADS`.\n- The wrong MPI module was loaded, or build- and run-time modules didn't match.\n- A rank/thread layout that oversubscribed a node's cores.\n\nThe agent can inspect the failed job's record and output to point at which it was.",
+    "id": 7
+  },
+  {
+    "breadcrumb": "The im cluster > Staying current",
+    "url": "internal://imlab/",
+    "text": "Installed software and node availability change over time. The authoritative\nsource is the live state of the machine, which the agent can query whenever a\nprecise, current answer matters (`module avail`, `sinfo`, `squeue`, `sacct`). For\nanything about accounts or policy, ask the IMLab administrators.",
+    "id": 8
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "name": "imlab",
+  "version": "0.1.0",
+  "description": "Interact with the IMLab `im` cluster (Institute of Science Tokyo): submit and monitor Slurm jobs, manage files on the cluster, and search the built-in guide.",
+  "author": {
+    "name": "TengxiangLii",
+    "email": "li.t.ab30@m.isct.ac.jp"
+  },
+  "repository": "https://github.com/TengxiangLii/IMLab-Agent",
+  "keywords": ["hpc", "slurm", "imlab", "isct", "cpu", "mpi", "computational-chemistry"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "IMLab",
+    "shortDescription": "Submit and monitor im-cluster Slurm jobs and search the IMLab docs.",
+    "longDescription": "Interact with the IMLab `im` cluster from Codex: submit and monitor Slurm (CPU/MPI) jobs, manage files on the cluster, and search the built-in guide.",
+    "developerName": "IMLab, Institute of Science Tokyo",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": [
+      "Show im cluster status.",
+      "Submit a small im test job.",
+      "Search the im guide."
+    ]
+  }
+}

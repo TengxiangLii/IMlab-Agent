@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imlab-mcp"
+version = "0.1.0"
+description = "MCP servers for the IMLab `im` cluster (Institute of Science Tokyo): Slurm interaction and documentation search."
+requires-python = ">=3.10"
+dependencies = [
+    "mcp",
+    "remotemanager",
+    "httpx",
+    "numpy",
+]
+
+[project.scripts]
+imlab-hpc-mcp = "imlab_mcp.hpc_server:main"
+imlab-docs-mcp = "imlab_mcp.docs_server:main"
+imlab-doctor = "imlab_mcp.doctor:main"
+
+[tool.setuptools.packages.find]
+include = ["imlab_mcp*"]
+
+[tool.setuptools.package-data]
+imlab_mcp = [
+    "data/*.json",
+    "data/*.md",
+    "data/docs_index/*",
+]

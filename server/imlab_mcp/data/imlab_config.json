@@ -1,0 +1,51 @@
+{
+  "cluster": "im",
+  "operator": "IMLab, Institute of Science Tokyo",
+  "login_host": "131.112.104.58 (login node im1)",
+  "scheduler": "Slurm 24.05.4 (sched/backfill, select/cons_tres, CR_CORE_MEMORY)",
+  "architecture": "x86_64 (AMD EPYC 7713, Zen3) — CPU only, no GPUs",
+  "os": "Ubuntu 24.04",
+  "nodes": [
+    {"name": "im1", "cpu": "AMD EPYC 7713 (64-core) x2 = 128 cores", "cores": 128, "memory_gb": 514, "role": "login + compute"},
+    {"name": "im2", "cpu": "AMD EPYC (64 cores)", "cores": 64, "memory_gb": 257, "role": "compute"},
+    {"name": "im3", "cpu": "AMD EPYC 7713 (64-core) x2 = 128 cores", "cores": 128, "memory_gb": 257, "role": "compute"}
+  ],
+  "notes": [
+    "im is a small CPU-first cluster (3 nodes) for MPI/OpenMP computational-chemistry workloads. There are NO GPUs.",
+    "Jobs are described in CPU terms: --nodes, --ntasks-per-node (MPI ranks), --cpus-per-task (OpenMP threads), and --mem. Set OMP_NUM_THREADS to match --cpus-per-task for threaded code.",
+    "Slurm accounting is NOT enforced (AccountingStorageEnforce=none): no project/account is required to submit and there is no core-time budget or billing. An --account may be given but is optional.",
+    "Wall-time limits are effectively unlimited (all partitions show TIMELIMIT=infinite). Still set a sensible --time so jobs are scheduled predictably; the default is 1 hour.",
+    "Memory: DefMemPerNode and MaxMemPerNode are UNLIMITED; selection is by cores+memory (CR_CORE_MEMORY). Request --mem when a job needs a specific amount.",
+    "Software is provided through Environment Modules (module avail/load/purge). Load an MPI stack (module load openmpi/5.0.7) and an application module in the job script.",
+    "There is no container runtime (no Apptainer/Singularity/Docker) and no shared Lustre or dedicated scratch tier — use /home for code and /data for large datasets.",
+    "The login node is im1; do not run heavy computation there — submit a Slurm job."
+  ],
+  "partitions": [
+    {"name": "main",  "default": true,  "max_time": "infinite", "note": "default partition for general CPU/MPI work"},
+    {"name": "long",  "default": false, "max_time": "infinite", "note": "for long-running jobs"},
+    {"name": "huge",  "default": false, "max_time": "infinite", "note": "for large-memory / whole-node jobs"},
+    {"name": "debug", "default": false, "max_time": "infinite", "note": "for quick tests and short debugging runs"}
+  ],
+  "modules": {
+    "system": "Environment Modules (Tmod) 5.4.0",
+    "mpi": ["openmpi/3.1.5", "openmpi/4.1.7", "openmpi/5.0.7"],
+    "libs": ["fftw/3.3.10", "fftw/3.3.10-mpi", "hdf5/1.14.5", "netcdf/4.9.2", "openblas/0.3.28", "scalapack/2.2.0"],
+    "applications": ["cp2k/2025.2", "lammps/22Jul2025", "quantum-espresso/7.3", "dftbplus/24.1", "dftbplus/24.1-serial", "bigdft/rho0"]
+  },
+  "compilers": {
+    "note": "GNU toolchain (gcc/gfortran) with OpenMPI; load an openmpi module for mpicc/mpif90/mpirun. Intel/AOCC are not part of the module set as probed."
+  },
+  "applications": ["CP2K", "LAMMPS", "Quantum ESPRESSO", "DFTB+", "BigDFT"],
+  "storage": {
+    "home": "/home/<user> — 500 GB shared (xfs). Code, scripts, small files.",
+    "data": "/data — 9.1 TB shared (xfs). Large datasets and results.",
+    "note": "No Lustre, no per-job scratch tier, no $SCRATCH. TMPDIR is unset by default."
+  },
+  "accounting": {
+    "enforced": false,
+    "note": "AccountingStorageEnforce=none — jobs run without an account; no points/budget. sacctmgr shows associations for information only."
+  },
+  "container_runtime": "none (no Apptainer/Singularity/Docker/Podman installed)",
+  "gpu": "none",
+  "support": "IMLab (internal)"
+}

@@ -32,7 +32,7 @@ the updated PATH.
 Install in Claude Code:
 
 ```
-/plugin marketplace add TengxiangLii/IMLab-Agent
+/plugin marketplace add TengxiangLii/IMlab-Agent
 /plugin install imlab@imlab-marketplace
 /reload-plugins
 ```
@@ -42,7 +42,7 @@ Install in Claude Code:
 Install in Codex:
 
 ```
-codex plugin marketplace add TengxiangLii/IMLab-Agent
+codex plugin marketplace add TengxiangLii/IMlab-Agent
 ```
 
 Then open `/plugins`, install `imlab`, start a new thread, and run

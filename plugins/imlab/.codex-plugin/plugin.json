@@ -6,7 +6,7 @@
     "name": "TengxiangLii",
     "email": "li.t.ab30@m.isct.ac.jp"
   },
-  "repository": "https://github.com/TengxiangLii/IMLab-Agent",
+  "repository": "https://github.com/TengxiangLii/IMlab-Agent",
   "keywords": ["hpc", "slurm", "imlab", "isct", "cpu", "mpi", "computational-chemistry"],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",

@@ -7,7 +7,7 @@
         "run",
         "--quiet",
         "--from",
-        "git+https://github.com/TengxiangLii/IMLab-Agent.git@main#subdirectory=server",
+        "git+https://github.com/TengxiangLii/IMlab-Agent.git@main#subdirectory=server",
         "imlab-hpc-mcp"
       ],
       "env": {}
@@ -19,7 +19,7 @@
         "run",
         "--quiet",
         "--from",
-        "git+https://github.com/TengxiangLii/IMLab-Agent.git@main#subdirectory=server",
+        "git+https://github.com/TengxiangLii/IMlab-Agent.git@main#subdirectory=server",
         "imlab-docs-mcp"
       ],
       "env": {}
